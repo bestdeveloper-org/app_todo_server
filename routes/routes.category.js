@@ -12,20 +12,6 @@ const jwtMiddleware = require("../jwt/jwt");
 
 const uuidv4 = require('uuid/v4');
 
-
-function getModule(name) {
-  switch (name) {
-    case 'survey': {
-      return surveyModule;
-      break;
-    }
-    case 'poloLogger': {
-      return poloLoggerModule;
-      break;
-    }
-  }
-}
-
 router
   .prefix('/api/category')
   .use(jwtMiddleware.mainMiddleware())
