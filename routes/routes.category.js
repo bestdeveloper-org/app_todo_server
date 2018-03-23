@@ -1,16 +1,7 @@
 const router = require('koa-router')();
 // const authMiddleware = require('../shared/auth/auth.middleware').errorHandler();
-const surveyModule = require('../modules/reports/survey/surveyReport')();
-const parse = require('co-body');
-const fs = require('fs-extra');
-const koabusBoy = require('co-busboy');
-const cmd = require('node-cmd');
-const testPipeline = require('pipeline-test-node');
 const mongoQuery = require('../utils/mongoQuery')();
-const categoryService = require('../modules/categories/categoryService')();
 const jwtMiddleware = require("../jwt/jwt");
-
-const uuidv4 = require('uuid/v4');
 
 router
   .prefix('/api/category')
