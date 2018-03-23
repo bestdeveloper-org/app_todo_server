@@ -2,21 +2,39 @@ const router = require('koa-router')();
 // const authMiddleware = require('../shared/auth/auth.middleware').errorHandler();
 const mongoQuery = require('../utils/mongoQuery')();
 const jwtMiddleware = require("../jwt/jwt");
+const ObjectID = require("mongodb").ObjectID;
+
+const categoryHelper = require("../modules/categories/categoryHelper");
 
 router
   .prefix('/api/category')
   .use(jwtMiddleware.mainMiddleware())
-  .use(async function (ctx, next) {
-  // console.log("category 000");
-  // var authHeader = ctx.req.headers.authorization;
-  // var r = await jwt.verify(authHeader, config.tokenPassword);
-  // ctx.request.body.tokenObj = r;
+    .post("/add", async function (ctx) {
 
-  return next().catch((err) => {
-      throw err;
-});
+      console.log("intra in add");
+
+    const body = ctx.request.body;
+
+    var entity = new mongoQuery.categorySchema.Category();
+    entity.name = body.name;
+
+    var rez = await entity.save();
+
+    // var entity = await mongoQuery.categorySchema.Category.insert(body);
+
+      return rez;
+  })
+
+.post("/insertOrUpdate", async function (ctx) {
+
+    console.log("intra in add");
+
+    const body = ctx.request.body;
+
+    return await categoryHelper.add_edit(body);
 })
-.post("/", async function (ctx) {
+
+  .post("/", async function (ctx) {
   // console.log("category");
 
   // const body = ctx.request.body;
